@@ -12,15 +12,15 @@ import java.util.Random;
 
 public class Game implements ScoreChart {
     Player[] m_players;
-    int[] m_scores;
+    int[] m_scores; // since when is there a score in connect four?
     List<ScoreChart.Listener> m_listeners;
     ReadWritableBoard m_board;
-    int m_inRow;
+    int m_inRow; // why track row?
     int m_currentPlayer;
     
     public Game(Player[] players, ReadWritableBoard board, int inRow) {
-        m_players = Arrays.copyOf(players, players.length);
-        m_scores = new int[players.length];
+        m_players = Arrays.copyOf(players, players.length);	// why make a copy?
+        m_scores = new int[players.length]; // is there a case where there are more or less than 2 players?
         m_listeners = new ArrayList<ScoreChart.Listener>();
         m_board = board;
         m_inRow = inRow;
@@ -59,7 +59,7 @@ public class Game implements ScoreChart {
                 }
                 played = true;
                 m_board.play(x, p);
-		Player win = detectWinner(m_board, m_inRow);
+                Player win = detectWinner(m_board, m_inRow);
                 if (win != null) {
                     m_scores[player] += 1;
                     for (ScoreChart.Listener l : m_listeners) {
@@ -67,31 +67,36 @@ public class Game implements ScoreChart {
                     }
                     m_board.clear();
                     performPlay(player);
-		} else if (m_board.getMoveCount() == m_board.getWidth()*m_board.getHeight() ) {
+                } 
+                else if (m_board.getMoveCount() == m_board.getWidth()*m_board.getHeight() ) {
                     for (ScoreChart.Listener l : m_listeners) {
                         l.gameOver(null, Game.this, m_board);
                     }
                     m_board.clear();
                     performPlay((player+1) % m_players.length);
-                } else {
+                } 
+                else {
                     performPlay((player+1) % m_players.length);
                 }
             }
-            @Override public void clear() {
+            @Override 
+            public void clear() {
                 m_board.clear();
             }
-            @Override public int getWidth() {
+            @Override 
+            public int getWidth() {
                 return m_board.getWidth();
             }
-            @Override public int getHeight() {
+            @Override 
+            public int getHeight() {
                 return m_board.getHeight();
             }
-	    @Override public int getColumnHeight(int x) {
-		return m_board.getColumnHeight(x);
-	    }
-	    @Override public int getMoveCount() {
-		return m_board.getMoveCount();
-	    }
+            @Override public int getColumnHeight(int x) {
+			return m_board.getColumnHeight(x);
+		    }
+		    @Override public int getMoveCount() {
+			return m_board.getMoveCount();
+		    }
         };
         m_players[player].performPlay(controlledBoard);
     }
@@ -141,42 +146,44 @@ public class Game implements ScoreChart {
                 }
             }
         }
-	for (int i = -l; i != l; ++i) {
+        for (int i = -l; i != l; ++i) {
             Player possible = null;
             int found = 0;
-	    for (int j = 0; j != m; ++j) {
-		int k = j+i;
-		if (k >= 0 && k < l) {
-                    if (board.whoPlayed(k, j) == possible && possible != null) {
-                        found += 1;
-                    } else {
-                        found = 1;
-                        possible = board.whoPlayed(k, j);
-                    }
-                    if (found == inRow) {
-                        return possible;
-                    }
+		   	for (int j = 0; j != m; ++j) {
+				int k = j+i;
+				if (k >= 0 && k < l) {
+	                if (board.whoPlayed(k, j) == possible && possible != null) {
+	                    found += 1;
+	                } 
+	                else {
+	                    found = 1;
+	                    possible = board.whoPlayed(k, j);
+	                }
+	                if (found == inRow) {
+	                    return possible;
+	                }
+				}
+		    }
 		}
-	    }
-	}
-	for (int i = -l; i != l; ++i) {
+        for (int i = -l; i != l; ++i) {
             Player possible = null;
             int found = 0;
-	    for (int j = 0; j != m; ++j) {
-		int k = j+i;
-		if (k >= 0 && k < l) {
+		    for (int j = 0; j != m; ++j) {
+		    	int k = j+i;
+		    	if (k >= 0 && k < l) {
                     if (board.whoPlayed(l-k-1, j) == possible && possible != null) {
                         found += 1;
-                    } else {
+                    } 
+                    else {
                         found = 1;
                         possible = board.whoPlayed(l-k-1, j);
                     }
                     if (found == inRow) {
                         return possible;
                     }
-		}
-	    }
-	}
+				}
+		    }
+        }
         return null;
     }
 }

@@ -23,10 +23,11 @@ public class ComputerPlayer implements Player {
 
     @Override public void performPlay(ReadWritableBoard board) {
         int l = board.getWidth();
-	int m = board.getHeight();
+        int m = board.getHeight();
         if (board.getMoveCount() == 0) {
             board.play((new Random()).nextInt(l), this);
-        } else {
+        } 
+        else {
             Player opponent = getOpponent(board);
             int maxMove = (new Random()).nextInt(l);
             long maxScore = scoreMove(maxMove, m_depth, board, opponent);
@@ -40,9 +41,9 @@ public class ComputerPlayer implements Player {
                 }
                 scores[i] = iScore;
             }
-	    while (board.whoPlayed(maxMove, m-1) != null) {
-                maxMove = (maxMove+1)%l;
-	    }
+		    while (board.whoPlayed(maxMove, m-1) != null) {
+	                maxMove = (maxMove+1)%l;
+		    }
             System.out.println(Arrays.toString(scores));
             board.play(maxMove, this);
         }
@@ -57,14 +58,16 @@ public class ComputerPlayer implements Player {
         long score = 0;
         if (Game.detectWinner(myMove, 4) == this) {
             score += Math.pow(l, depth);
-        } else if (depth != 0) {
+        } 
+        else if (depth != 0) {
             for (int i = 0; i != l; ++i) {
                 if (myMove.whoPlayed(i, m-1) != null) continue;
                 Board nextMove = new Board(myMove);
                 nextMove.play(i, opponent);
                 if (Game.detectWinner(nextMove, 4) == opponent) {
-		    score -= Math.pow(l, depth-1);
-		} else {
+                	score -= Math.pow(l, depth-1);
+                } 
+                else {
                     for (int j = 0; j != l; ++j) {
                         score += scoreMove(j, depth - 2, nextMove, opponent);
                     }
@@ -87,5 +90,4 @@ public class ComputerPlayer implements Player {
         }
         throw new Error("Can't call getOpponent on first turn.");
     }
-
 }
