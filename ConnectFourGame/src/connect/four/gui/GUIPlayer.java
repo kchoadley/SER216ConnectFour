@@ -10,7 +10,6 @@ import connect.four.board.ReadWritableBoard;
 import connect.four.gui.*;
 import connect.four.player.Player;
 
-
 public class GUIPlayer implements Player {
 	private String m_name;
 	GamePanel gpGUI;
@@ -27,8 +26,6 @@ public class GUIPlayer implements Player {
 	
 	@Override public void performPlay(ReadWritableBoard board) {
 		this.board = board;
-		
-		
 	}
 	
 	public ReadWritableBoard getBoard(){

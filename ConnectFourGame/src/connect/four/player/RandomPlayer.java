@@ -5,7 +5,7 @@ import connect.four.board.ReadWritableBoard;
 import java.util.Random;
 
 
-public class RandomPlayer implements Player {
+public class RandomPlayer implements Player { // why is there a random player class? It isn't used...
     @Override
     public String getName() {
         return "Computer";
