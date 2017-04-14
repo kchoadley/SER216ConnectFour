@@ -25,8 +25,8 @@ public class GUI extends javax.swing.JFrame {
 		initComponents();
 		score1 = 0;
 		score2 = 0;
-		//gamePanel = new GamePanel(this);
 		mainMenu = new MainMenuPanel(this);
+		gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
 		add(mainMenu);
 		
 	}
