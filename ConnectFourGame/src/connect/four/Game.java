@@ -114,30 +114,45 @@ public class Game implements ScoreChart {
     }
 
     public static Player detectWinner(ReadableBoard board, int inRow) {
-        int l = board.getWidth();
-        int m = board.getHeight();
-        for (int i = 0; i != l; ++i) {
+    	// inRow is how many tokens should be in a row in order to win. Only called with inRow of 4.
+    	if(board.getMoveCount()<(inRow*2-1))		// not enough moves to have a winner yet
+    		return null;
+        int width = board.getWidth();
+        int height = board.getHeight();
+        
+        // check columns for winner
+        // would be easy to make more efficient by continuing to next column if a null space is found
+        for (int i = 0; i < width; ++i) {				
             Player possible = null;
             int found = 0;
-            for (int j = 0; j != m; ++j) {
-                if (board.whoPlayed(i, j) == possible && possible != null) {
+            for (int j = 0; j < height; ++j) {
+                if (possible == null) {		// no longer possible to have a win in this column, move on to next column
+                	j=height;
+                } 
+                else if (board.whoPlayed(i, j) == possible) {
                     found += 1;
-                } else {
+                    if (found == inRow) {
+                        return possible;
+                    }
+                }
+                else {
                     found = 1;
                     possible = board.whoPlayed(i, j);
                 }
-                if (found == inRow) {
-                    return possible;
-                }
             }
         }
-        for (int i = 0; i != m; ++i) {
+        
+        // check rows for winner
+        for (int i = 0; i < height; ++i) {
             Player possible = null;
             int found = 0;
-            for (int j = 0; j != l; ++j) {
+            for (int j = 0; j < width; ++j) {
                 if (board.whoPlayed(j, i) == possible && possible != null) {
                     found += 1;
-                } else {
+                }
+                else if(j > width-inRow+1) // no longer possible to have a win in this row, move on to next row
+                	j=width;
+                else {
                     found = 1;
                     possible = board.whoPlayed(j, i);
                 }
@@ -146,15 +161,20 @@ public class Game implements ScoreChart {
                 }
             }
         }
-        for (int i = -l; i != l; ++i) {
+        
+        // checks diagonals going from bottom left to top right. First location checked is top left corner position
+        // adjusted i to start at first diagonal that could contain a win and end on last diagonal that could contain a win
+        for (int i = inRow-height; i < width-inRow+1; ++i) {
             Player possible = null;
             int found = 0;
-		   	for (int j = 0; j != m; ++j) {
+		   	for (int j = 0; j < height; ++j) {
 				int k = j+i;
-				if (k >= 0 && k < l) {
+				if (k >= 0 && k < width) {
 	                if (board.whoPlayed(k, j) == possible && possible != null) {
 	                    found += 1;
 	                } 
+	                else if(j > height-inRow+1) // no longer possible to have a win in this diagonal, move on to next diagonal
+	                	j=height;
 	                else {
 	                    found = 1;
 	                    possible = board.whoPlayed(k, j);
@@ -165,18 +185,23 @@ public class Game implements ScoreChart {
 				}
 		    }
 		}
-        for (int i = -l; i != l; ++i) {
+
+        // checks diagonals from bottom right to top left. Starts at top right space on board.
+        // adjusted i to start at first diagonal that could contain a win and end on last diagonal that could contain a win
+        for (int i = inRow-height; i < width-inRow+1; ++i) {
             Player possible = null;
             int found = 0;
-		    for (int j = 0; j != m; ++j) {
+		    for (int j = 0; j < height; ++j) {
 		    	int k = j+i;
-		    	if (k >= 0 && k < l) {
-                    if (board.whoPlayed(l-k-1, j) == possible && possible != null) {
+		    	if (k >= 0 && k < width) {
+                    if (board.whoPlayed(width-k-1, j) == possible && possible != null) {
                         found += 1;
                     } 
+                    else if(j > height-inRow+1)	// no longer possible to have a win in this diagonal, move on to next diagonal
+                    	j=height;
                     else {
                         found = 1;
-                        possible = board.whoPlayed(l-k-1, j);
+                        possible = board.whoPlayed(width-k-1, j);
                     }
                     if (found == inRow) {
                         return possible;
