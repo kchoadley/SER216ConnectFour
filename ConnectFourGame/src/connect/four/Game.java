@@ -126,7 +126,7 @@ public class Game implements ScoreChart {
             Player possible = null;
             int found = 0;
             for (int j = 0; j < height; ++j) {
-                if (possible == null) {		// no longer possible to have a win in this column, move on to next column
+                if (board.whoPlayed(i, j) == null) {		// no longer possible to have a win in this column, move on to next column
                 	j=height;
                 } 
                 else if (board.whoPlayed(i, j) == possible) {
