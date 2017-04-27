@@ -6,12 +6,16 @@
 
 package connect.four.gui;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import connect.four.Game;
 
 public class MainMenuPanel extends javax.swing.JPanel {
 	private String name1, name2;
 	GUI gui;
 	private boolean isEnabled;
+	final int MAX_CHARACTERS_IN_NAME=13;
 	
 	public MainMenuPanel(GUI gui) {
 		initComponents();
@@ -44,17 +48,19 @@ public class MainMenuPanel extends javax.swing.JPanel {
         title.setText("Connect Four");
 
         tfplayer1.setText("Player 1");
-        tfplayer1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        tfplayer1ActionPerformed(evt);
-                }
+        tfplayer1.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) { 
+                if (tfplayer1.getText().length() >= MAX_CHARACTERS_IN_NAME ) // limit textfield input
+                    e.consume(); 
+            }  
         });
 
         tfplayer2.setText("Player 2");
-        tfplayer2.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        tfplayer2ActionPerformed(evt);
-                }
+        tfplayer2.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) { 
+                if (tfplayer2.getText().length() >= MAX_CHARACTERS_IN_NAME ) // limit textfield input
+                    e.consume(); 
+            }  
         });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -130,17 +136,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfplayer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfplayer2ActionPerformed
-            
-    }//GEN-LAST:event_tfplayer2ActionPerformed
-
-    private void tfplayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfplayer1ActionPerformed
-            
-    }//GEN-LAST:event_tfplayer1ActionPerformed
 
     private void butPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPlayActionPerformed
-		gui.setPlayer1Name(tfplayer1.getText());
-		gui.setPlayer2Name(tfplayer2.getText());
+		gui.setPlayer1Name(tfplayer1.getText().length()>0? tfplayer1.getText() : "Player 1");
+		gui.setPlayer2Name(tfplayer2.getText().length()>0? tfplayer2.getText() : "Player 2");
 		//gui.game.start();
 		gui.remove(this);
 		gui.addGamePanel();
