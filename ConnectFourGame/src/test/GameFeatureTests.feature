@@ -55,6 +55,10 @@ Feature:  Game
 		board.play(0, player1)
 		board.play(0, player1)
 		board.play(0, player1)
+		board.play(5, player2)
+		board.play(4, player2)
+		board.play(5, player2)
+		board.play(4, player2)
 		
 		Then game should return player1 as winner
 		
@@ -76,6 +80,10 @@ Feature:  Game
 		board.play(1, player1)
 		board.play(2, player1)
 		board.play(3, player1)
+		board.play(0, player2)
+		board.play(0, player2)
+		board.play(1, player2)
+		board.play(1, player2)
 		
 		Then game should return player1 as winner again
 		
