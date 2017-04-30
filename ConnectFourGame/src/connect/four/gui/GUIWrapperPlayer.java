@@ -25,6 +25,9 @@ public class GUIWrapperPlayer implements Player {
 	public String getName() {
 		return player.getName();
 	}
+	public Player getPlayer(){
+		return this.player;
+	}
 
 	@Override
 	public void performPlay(final ReadWritableBoard board) {
