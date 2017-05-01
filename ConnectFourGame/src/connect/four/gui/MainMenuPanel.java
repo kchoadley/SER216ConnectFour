@@ -55,22 +55,20 @@ public class MainMenuPanel extends javax.swing.JPanel {
         tfplayer1.setText("Player 1");
         tfplayer1.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) { 
-                if (tfplayer1.getText().length() >= MAX_CHARACTERS_IN_NAME )	// limit textfield input
+                if (tfplayer1.getText().length() >= MAX_CHARACTERS_IN_NAME ) {	// limit textfield input
                     e.consume(); 												// ignores any additional inputs
-            }  
-        });
-        tfplayer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if (tfplayer1.getText().length() >= MAX_CHARACTERS_IN_NAME )	// limit textfield input
                 	tfplayer1.setText(tfplayer1.getText().substring(0, MAX_CHARACTERS_IN_NAME));	// sets name to substring
-            }
+                }
+            }  
         });
 
         tfplayer2.setText("Player 2");
         tfplayer2.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) { 
-                if (tfplayer2.getText().length() >= MAX_CHARACTERS_IN_NAME )	// limit textfield input
+                if (tfplayer2.getText().length() >= MAX_CHARACTERS_IN_NAME ) {	// limit textfield input
                     e.consume(); 												// ignores any additional inputs
+                	tfplayer2.setText(tfplayer2.getText().substring(0, MAX_CHARACTERS_IN_NAME));	// sets name to substring
+                }
             }  
         });
         tfplayer2.addActionListener(new java.awt.event.ActionListener() {
