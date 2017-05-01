@@ -45,6 +45,7 @@ public class Board implements ReadWritableBoard {
     public @Override int getWidth() {
         return m_contents.length;
     }
+    
     public @Override int getHeight() {
         return m_contents[0].length;
     }
