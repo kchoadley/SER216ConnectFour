@@ -71,13 +71,6 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 }
             }  
         });
-        tfplayer2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if (tfplayer2.getText().length() >= MAX_CHARACTERS_IN_NAME )	// limit textfield input
-                	tfplayer2.setText(tfplayer2.getText().substring(0, MAX_CHARACTERS_IN_NAME));	// sets name to substring
-
-            }
-    });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
