@@ -6,13 +6,9 @@
 
 package connect.four.gui;
 
-import connect.four.*;
-import connect.four.board.*;
-import connect.four.player.*;
-
 
 public class GUI extends javax.swing.JFrame {
-
+	private static final long serialVersionUID = -8980582623705405399L;
 	MainMenuPanel mainMenu;
 	GamePanel gamePanel;
 	GameOverPanel gameOverPanel;
@@ -26,7 +22,7 @@ public class GUI extends javax.swing.JFrame {
 		score1 = 0;
 		score2 = 0;
 		mainMenu = new MainMenuPanel(this);
-		gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
+		gamePanel = new GamePanel(this, mainMenu.getIsEnabled(), mainMenu.getDiff());
 		add(mainMenu);
 		
 	}
@@ -113,7 +109,7 @@ public class GUI extends javax.swing.JFrame {
 	}
 	
 	void addGamePanel(){
-		gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
+		gamePanel = new GamePanel(this, mainMenu.getIsEnabled(), mainMenu.getDiff());
 		add(gamePanel);
 	}
 	
