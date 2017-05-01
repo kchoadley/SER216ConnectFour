@@ -50,7 +50,8 @@ public class ComputerPlayer implements Player {
     }
     
     // Left in old score move (lightly edited) with comments to clarify how it worked and why I changed it
-    private long scoreMove(int x, int depth, ReadableBoard board, Player opponent) {
+    @SuppressWarnings("unused")
+	private long scoreMove(int x, int depth, ReadableBoard board, Player opponent) {
     	if(depth <= 0)
     		return 0;
         int m = board.getHeight();								// initialize m to board height

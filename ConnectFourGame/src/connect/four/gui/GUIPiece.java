@@ -6,14 +6,10 @@
 
 package connect.four.gui;
 
-import static connect.four.gui.GamePanel.PLAY_TIME;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
-
 public class GUIPiece extends JLabel{
-	
+	private static final long serialVersionUID = -7676734575058999782L;
 	int glowNum;
 	ImageIcon glow1;
 	ImageIcon glow2;
@@ -53,6 +49,4 @@ public class GUIPiece extends JLabel{
 	ImageIcon getGlow(int index){
 		return glowing[index];
 	}
-
-
 }
