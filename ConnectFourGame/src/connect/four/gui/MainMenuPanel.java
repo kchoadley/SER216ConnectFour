@@ -12,7 +12,7 @@ import javax.swing.JComboBox;
 
 public class MainMenuPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = -3250605153152509088L;
-	private static final String[] difficulties = {"Easy", "Normal", "Hard"};
+	private static final String[] difficulties = {"Easy", "Normal", "Hard", "Brutal"};
 	private int diff;
 	GUI gui;
 	private boolean isEnabled;
@@ -177,6 +177,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
 			diff = 2;
 		else if(compDifficulty.getSelectedIndex() == 2)
 			diff = 6;
+		else if(compDifficulty.getSelectedIndex() == 3)
+			diff = 8;
 		else
 			diff = 4;
 		gui.remove(this);

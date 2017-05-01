@@ -35,7 +35,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	
 	public GamePanel(GUI gui, boolean isComputerEnabled, int diff) {
 		//whoPlayed = 1;
-		if(diff != 2 && diff != 6)	// ensure valid input. Default to "normal" (4)
+		if(diff ==0)	// ensure valid input. Default to "normal" (4)
 			diff = 4;
 		System.out.println("Computer Difficulty set to: " + diff);
 		players = new Player[2];

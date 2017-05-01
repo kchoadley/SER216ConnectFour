@@ -1,7 +1,0 @@
-package test
-
-#ConnectFourUnitTests
-
-- "Board"
-- "Computer Player"
-- "Game"
