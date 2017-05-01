@@ -38,11 +38,6 @@ public class Game implements ScoreChart {
     @Override public List<Player> getPlayers() {
         return Arrays.asList(m_players);
     }
-    
-    public void setScore(int pos, int newScore) { 
-        m_scores[pos] = newScore;
-    }
-    
     @Override public int getScore(Player p) {
         int pos = -1;
         int l = m_players.length;
@@ -216,5 +211,4 @@ public class Game implements ScoreChart {
         }
         return null;
     }
-
 }
