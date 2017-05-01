@@ -4,6 +4,7 @@ package connect.four.gui;
 
 
 public class GameOverPanel extends javax.swing.JPanel {
+	private static final long serialVersionUID = 92671837883194129L;
 	GUI gui;
 	
 	public GameOverPanel(GUI gui, String winner) {
@@ -15,7 +16,7 @@ public class GameOverPanel extends javax.swing.JPanel {
 		setVisible(true);
 	}
 	
-	@SuppressWarnings("unchecked")
+	
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
             winnerDisplay = new javax.swing.JLabel();

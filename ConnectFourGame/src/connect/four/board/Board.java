@@ -2,7 +2,6 @@
 package connect.four.board;
 
 import connect.four.gui.GUIWrapperPlayer;
-import connect.four.player.ComputerPlayer;
 import connect.four.player.Player;
 import java.util.Arrays;
 
@@ -40,7 +39,6 @@ public class Board implements ReadWritableBoard {
     	if(m_contents[x][y] instanceof GUIWrapperPlayer){
     		return ((GUIWrapperPlayer)m_contents[x][y]).getPlayer();
     	}
-    	
     	
         return m_contents[x][y];
     }
