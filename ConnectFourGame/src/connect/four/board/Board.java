@@ -2,7 +2,6 @@
 package connect.four.board;
 
 import connect.four.gui.GUIWrapperPlayer;
-import connect.four.player.ComputerPlayer;
 import connect.four.player.Player;
 import java.util.Arrays;
 
@@ -41,12 +40,12 @@ public class Board implements ReadWritableBoard {
     		return ((GUIWrapperPlayer)m_contents[x][y]).getPlayer();
     	}
     	
-    	
         return m_contents[x][y];
     }
     public @Override int getWidth() {
         return m_contents.length;
     }
+    
     public @Override int getHeight() {
         return m_contents[0].length;
     }
