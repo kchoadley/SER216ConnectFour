@@ -160,7 +160,7 @@ public class GUI extends javax.swing.JFrame {
 	
 	public final void backgroundMusic() {
 	try { 
-		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/ConnectFourBackgroundMusic.wav"));
+		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/ConnectFourBackgroundMusic.wav"));
 		Clip clip  = AudioSystem.getClip();
 		clip.open(in);
 		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

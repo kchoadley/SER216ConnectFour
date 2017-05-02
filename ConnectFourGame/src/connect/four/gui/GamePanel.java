@@ -664,7 +664,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	//Plays game over sound
 	public void gameOverSound() { 
     	try { 
-    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/gameOver.wav"));
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/gameOver.wav"));
     		Clip clip = AudioSystem.getClip();
     		clip.open(in);
     		clip.start();
@@ -677,7 +677,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	//Play piece drop sound
 	public void pieceSound() { 
     	try { 
-    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/pieceNoise2.wav"));
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/pieceNoise2.wav"));
     		Clip clip = AudioSystem.getClip();
     		clip.open(in);
     		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

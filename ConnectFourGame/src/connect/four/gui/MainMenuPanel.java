@@ -245,7 +245,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     	
     	try { 
     		
-    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/pieceNoise1.wav"));
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/pieceNoise1.wav"));
     		Clip clip = AudioSystem.getClip();
     		clip.open(in);
     		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -260,7 +260,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     //Sound for button press
     public void buttonSound() { 
     	try { 
-    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/button.wav"));
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/button.wav"));
     		Clip clip = AudioSystem.getClip();
     		clip.open(in);
     		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);

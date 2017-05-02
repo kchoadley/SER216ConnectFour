@@ -119,7 +119,7 @@ public class GameOverPanel extends javax.swing.JPanel {
     //Plays Button Sound
     public void buttonSound() { 
     	try { 
-    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/button.wav"));
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/button.wav"));
     		Clip clip = AudioSystem.getClip();
     		clip.open(in);
     		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
