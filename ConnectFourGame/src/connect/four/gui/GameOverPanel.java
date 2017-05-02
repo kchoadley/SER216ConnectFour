@@ -2,6 +2,10 @@
 
 package connect.four.gui;
 
+import java.io.InputStream;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class GameOverPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = 92671837883194129L;
@@ -94,7 +98,7 @@ public class GameOverPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butPlayAgainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPlayAgainActionPerformed
-            
+    buttonSound(); //Play button sound  
 	gui.remove(this);
 	gui.addGamePanel();
 	gui.revalidate();
@@ -102,12 +106,25 @@ public class GameOverPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_butPlayAgainActionPerformed
 
     private void butMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butMainMenuActionPerformed
+    buttonSound(); //Play button sound
 	gui.remove(this);
 	gui.addMainMenu();
 	gui.revalidate();
 	gui.repaint();
     }//GEN-LAST:event_butMainMenuActionPerformed
 
+    //Plays Button Sound
+    public void buttonSound() { 
+    	try { 
+    		InputStream in = getClass().getResourceAsStream("/button.wav");
+    		AudioStream stream = new AudioStream(in);
+    		AudioPlayer.player.start(stream);
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butMainMenu;
     private javax.swing.JButton butPlayAgain;

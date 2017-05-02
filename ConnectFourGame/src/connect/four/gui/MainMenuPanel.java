@@ -6,9 +6,12 @@
 
 package connect.four.gui;
 
+import connect.four.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
+import java.io.*;
+import sun.audio.*;
 
 public class MainMenuPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = -3250605153152509088L;
@@ -158,6 +161,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
 
     private void butPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPlayActionPerformed
+    	buttonSound();
         if (tfplayer1.getText().length() >= MAX_CHARACTERS_IN_NAME )	// if more than max character input
         	tfplayer1.setText(tfplayer1.getText().substring(0, MAX_CHARACTERS_IN_NAME));	// sets name to substring
         if (tfplayer2.getText().length() >= MAX_CHARACTERS_IN_NAME )	// if more than max character input
@@ -185,6 +189,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_butPlayActionPerformed
 
     private void jtComputerToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtComputerToggleActionPerformed
+    	toggleSound(); //Plays toggle button sound
         if(!isEnabled){
 			tfplayer2.setText("Computer");
 			tfplayer2.setEditable(false);
@@ -201,6 +206,30 @@ public class MainMenuPanel extends javax.swing.JPanel {
 		}
     }//GEN-LAST:event_jtComputerToggleActionPerformed
 
+    //Sound for toggle switch
+    public void toggleSound() { 
+    	try { 
+    		InputStream in = getClass().getResourceAsStream("/pieceNoise1.wav");
+    		AudioStream stream = new AudioStream(in);
+    		AudioPlayer.player.start(stream);
+    		
+    	}catch(Exception any) { 
+    		System.out.println("Exception: " + any);
+    	}
+    }
+    
+    //Sound for button press
+    public void buttonSound() { 
+    	try { 
+    		InputStream in = getClass().getResourceAsStream("/button.wav");
+    		AudioStream stream = new AudioStream(in);
+    		AudioPlayer.player.start(stream);
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
+    
 	public boolean getIsEnabled() {
 		return isEnabled;
 	}

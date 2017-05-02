@@ -9,9 +9,14 @@ package connect.four.gui;
 import connect.four.*;
 import connect.four.board.*;
 import connect.four.player.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
+
 import javax.swing.Timer;
 
 
@@ -427,6 +432,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 							player.getBoard().play(getColumnNum(), player);
 						}
 					}
+					pieceSound(); //Plays piece sound
 					turnUp();
 				}
 		    }
@@ -548,6 +554,10 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 
 				//Turn goes up, unless there is a tie
 				if(turnNum == 42){
+					for (GUIPiece piece : pieces) {
+						piece.setIcon(null);
+						topGlass.remove(piece);
+					}
 					gui.setWinner("It's a tie!");
 					board.clear();
 					initNewGame();
@@ -616,7 +626,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	//GAME OVER
 	@Override
 	public void gameOver(Player winner, ScoreChart scores, ReadableBoard end) {
-		if(turnNum < 41 || winner !=null){
+		if(turnNum < 41){
 			if(game.getCurrentPlayer() == players[0]){
 				gui.setScore1(gui.getScore1()+1);
 			}
@@ -626,6 +636,13 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 			gui.setWinner(game.getCurrentPlayer().getName());
 			
 			board.clear();
+			for (GUIPiece piece : pieces) {
+				if(piece != null){
+					piece.setIcon(null);
+					topGlass.remove(piece);
+				}
+			}
+			gameOverSound(); //Plays game over sound
 			initNewGame();
 			gui.addGameOver();
 			justWon = true;
@@ -651,6 +668,30 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		timer.setCoalesce(true);
 		timer.start();
 	}
+	
+	//Plays game over sound
+	public void gameOverSound() { 
+    	try { 
+    		InputStream in = getClass().getResourceAsStream("/gameOver.wav");
+    		AudioStream stream = new AudioStream(in);
+    		AudioPlayer.player.start(stream);
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
+	
+	//Play piece drop sound
+	public void pieceSound() { 
+    	try { 
+    		InputStream in = getClass().getResourceAsStream("/pieceNoise2.wav");
+    		AudioStream stream = new AudioStream(in);
+    		AudioPlayer.player.start(stream);
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgImage;
