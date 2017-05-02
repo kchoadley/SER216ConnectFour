@@ -6,9 +6,17 @@
 
 package connect.four.gui;
 
+import connect.four.*;
+
+import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
+import java.io.*;
+import java.net.URI;
+
+import javax.sound.sampled.*;
+import javax.swing.*;
 
 public class MainMenuPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = -3250605153152509088L;
@@ -42,6 +50,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
         butPlay = new javax.swing.JButton();
         jtComputerToggle = new javax.swing.JToggleButton();
         compDifficulty = new JComboBox<String>(difficulties);
+        musicAttribute = new javax.swing.JLabel();
+        musicDL = new javax.swing.JButton();
         
         compDifficulty.setSelectedIndex(1);	// sets "Normal" as default choice
         compDifficulty.setVisible(false);
@@ -95,6 +105,18 @@ public class MainMenuPanel extends javax.swing.JPanel {
                         jtComputerToggleActionPerformed(evt);
                 }
         });
+        
+        musicAttribute.setFont(new java.awt.Font("Lucida Grande", 0, 12));
+        musicAttribute.setForeground(new java.awt.Color(255, 255, 255));
+        musicAttribute.setText("Music: \"Smudj\" by Foniqz licensed under CC 3.0  ");
+        
+        musicDL.setFont(new java.awt.Font("Lucida Grande", 0, 12));
+        musicDL.setText("Source");
+        musicDL.addActionListener(new java.awt.event.ActionListener() { 
+        	public void actionPerformed(java.awt.event.ActionEvent evt) { 
+        		musicDLAction(evt);
+        	}
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,6 +140,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
                                                         .addGap(18, 18, 18)
                                                         .addComponent(compDifficulty)
                                                         .addComponent(tfplayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        		.addGroup(layout.createSequentialGroup()
+                        				.addGap(500, 500, 500)
+                        				.addComponent(musicAttribute)
+                        				.addComponent(musicDL))
                                 .addGroup(layout.createSequentialGroup()
                                         .addGap(524, 524, 524)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -143,12 +169,19 @@ public class MainMenuPanel extends javax.swing.JPanel {
                         .addComponent(jtComputerToggle, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(butPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(280,280,280)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        		.addGap(50, 50, 50)
+                        		.addComponent(musicAttribute)
+                        		.addComponent(musicDL))
                         .addContainerGap(352, Short.MAX_VALUE))
+                
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     private void butPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butPlayActionPerformed
+    	buttonSound();
         if (tfplayer1.getText().length() >= MAX_CHARACTERS_IN_NAME )	// if more than max character input
         	tfplayer1.setText(tfplayer1.getText().substring(0, MAX_CHARACTERS_IN_NAME));	// sets name to substring
         if (tfplayer2.getText().length() >= MAX_CHARACTERS_IN_NAME )	// if more than max character input
@@ -178,6 +211,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_butPlayActionPerformed
 
     private void jtComputerToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtComputerToggleActionPerformed
+    	toggleSound(); //Plays toggle button sound
         if(!isEnabled){
 			tfplayer2.setText("Computer");
 			tfplayer2.setEditable(false);
@@ -194,6 +228,50 @@ public class MainMenuPanel extends javax.swing.JPanel {
 		}
     }//GEN-LAST:event_jtComputerToggleActionPerformed
 
+    public void musicDLAction(java.awt.event.ActionEvent evt)  {
+    	buttonSound();
+    	if (Desktop.isDesktopSupported()) { 
+    		try { 
+    			URI uri = new URI("http://freemusicarchive.org/music/Foniqz/D2_EP/02_Smudj");
+    			Desktop.getDesktop().browse(uri);
+    		}catch (Exception any) { 
+    			System.out.println("Exception: " + any);
+    		}
+    	}
+    }
+    
+    //Sound for toggle switch
+    public void toggleSound() { 
+    	
+    	try { 
+    		
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/pieceNoise1.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			volumeControl.setValue(GUI.AUDIO_GAIN);
+    		clip.start();
+    		
+    	}catch(Exception any) { 
+    		System.out.println("Exception: " + any);
+    	}
+    }
+    
+    //Sound for button press
+    public void buttonSound() { 
+    	try { 
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/button.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			volumeControl.setValue(GUI.AUDIO_GAIN);
+    		clip.start();
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
+    
 	public boolean getIsEnabled() {
 		return isEnabled;
 	}
@@ -207,8 +285,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JComboBox<String> compDifficulty;
     private javax.swing.JToggleButton jtComputerToggle;
+    private javax.swing.JButton musicDL;
     private javax.swing.JTextField tfplayer1;
     private javax.swing.JTextField tfplayer2;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel musicAttribute;
     // End of variables declaration//GEN-END:variables
 }
