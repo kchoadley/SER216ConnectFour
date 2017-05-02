@@ -11,11 +11,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import connect.four.*;
-
 public class GUI extends javax.swing.JFrame {
 	private static final long serialVersionUID = -8980582623705405399L;
-	public static final float AUDIO_GAIN = -13;
+	public static float AUDIO_GAIN = -13;
 	MainMenuPanel mainMenu;
 	GamePanel gamePanel;
 	GameOverPanel gameOverPanel;
@@ -81,6 +79,7 @@ public class GUI extends javax.swing.JFrame {
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				new GUI().setVisible(true);
 			}
@@ -159,18 +158,18 @@ public class GUI extends javax.swing.JFrame {
 		score2 = newScore;
 	}
 	
-	public void backgroundMusic() { 
-		try { 
-			AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/ConnectFourBackgroundMusic.wav"));
-			Clip clip = AudioSystem.getClip();
-			clip.open(in);
-			FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			volumeControl.setValue(AUDIO_GAIN);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-			clip.start();
-			} catch(Exception any) { 
-				System.out.println("Exception: " + any);
-			}
+	public final void backgroundMusic() {
+	try { 
+		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/ConnectFourBackgroundMusic.wav"));
+		Clip clip  = AudioSystem.getClip();
+		clip.open(in);
+		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		volumeControl.setValue(GUI.AUDIO_GAIN);
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		clip.start();
+		} catch(Exception any) { 
+			System.out.println("Exception: " + any);
+		}
 	}
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
