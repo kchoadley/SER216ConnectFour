@@ -9,9 +9,16 @@ package connect.four.gui;
 import connect.four.*;
 import connect.four.board.*;
 import connect.four.player.*;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.Timer;
 
 
@@ -427,6 +434,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 							player.getBoard().play(getColumnNum(), player);
 						}
 					}
+					pieceSound(); //Plays piece sound
 					turnUp();
 				}
 		    }
@@ -626,6 +634,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 			gui.setWinner(game.getCurrentPlayer().getName());
 			
 			board.clear();
+			gameOverSound(); //Plays game over sound
 			initNewGame();
 			gui.addGameOver();
 			justWon = true;
@@ -651,6 +660,34 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 		timer.setCoalesce(true);
 		timer.start();
 	}
+	
+	//Plays game over sound
+	public void gameOverSound() { 
+    	try { 
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/gameOver.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		clip.start();
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
+	
+	//Play piece drop sound
+	public void pieceSound() { 
+    	try { 
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResource("/pieceNoise2.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			volumeControl.setValue(GUI.AUDIO_GAIN);
+    		clip.start();
+ 
+    	} catch(Exception any) {
+    		System.out.println("Exception : " + any);
+    	}
+    }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgImage;
