@@ -4,8 +4,10 @@ package connect.four.gui;
 
 import java.io.InputStream;
 
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 
 public class GameOverPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = 92671837883194129L;
@@ -116,9 +118,10 @@ public class GameOverPanel extends javax.swing.JPanel {
     //Plays Button Sound
     public void buttonSound() { 
     	try { 
-    		InputStream in = getClass().getResourceAsStream("/button.wav");
-    		AudioStream stream = new AudioStream(in);
-    		AudioPlayer.player.start(stream);
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/button.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		clip.start();
  
     	} catch(Exception any) {
     		System.out.println("Exception : " + any);

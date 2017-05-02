@@ -9,14 +9,15 @@ package connect.four.gui;
 import connect.four.*;
 import connect.four.board.*;
 import connect.four.player.*;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.Timer;
 
 
@@ -662,9 +663,10 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	//Plays game over sound
 	public void gameOverSound() { 
     	try { 
-    		InputStream in = getClass().getResourceAsStream("/gameOver.wav");
-    		AudioStream stream = new AudioStream(in);
-    		AudioPlayer.player.start(stream);
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/gameOver.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		clip.start();
  
     	} catch(Exception any) {
     		System.out.println("Exception : " + any);
@@ -674,9 +676,10 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
 	//Play piece drop sound
 	public void pieceSound() { 
     	try { 
-    		InputStream in = getClass().getResourceAsStream("/pieceNoise2.wav");
-    		AudioStream stream = new AudioStream(in);
-    		AudioPlayer.player.start(stream);
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/pieceNoise2.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		clip.start();
  
     	} catch(Exception any) {
     		System.out.println("Exception : " + any);

@@ -11,7 +11,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import java.io.*;
-import sun.audio.*;
+import javax.sound.sampled.*;
+import javax.swing.*;
 
 public class MainMenuPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = -3250605153152509088L;
@@ -208,10 +209,13 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     //Sound for toggle switch
     public void toggleSound() { 
+    	
     	try { 
-    		InputStream in = getClass().getResourceAsStream("/pieceNoise1.wav");
-    		AudioStream stream = new AudioStream(in);
-    		AudioPlayer.player.start(stream);
+    		
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/pieceNoise1.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		clip.start();
     		
     	}catch(Exception any) { 
     		System.out.println("Exception: " + any);
@@ -221,9 +225,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
     //Sound for button press
     public void buttonSound() { 
     	try { 
-    		InputStream in = getClass().getResourceAsStream("/button.wav");
-    		AudioStream stream = new AudioStream(in);
-    		AudioPlayer.player.start(stream);
+    		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/button.wav"));
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(in);
+    		clip.start();
  
     	} catch(Exception any) {
     		System.out.println("Exception : " + any);
