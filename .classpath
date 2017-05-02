@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="ConnectFourGame/xtend-gen"/>
 	<classpathentry kind="con" path="org.jnario.JNARIO_CONTAINER"/>
 	<classpathentry kind="src" path="ConnectFourGame/src"/>
 	<classpathentry kind="src" path="ConnectFourGame/Images"/>
