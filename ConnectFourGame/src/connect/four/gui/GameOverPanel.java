@@ -7,6 +7,7 @@ import java.io.InputStream;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 
 public class GameOverPanel extends javax.swing.JPanel {
@@ -121,6 +122,8 @@ public class GameOverPanel extends javax.swing.JPanel {
     		AudioInputStream in = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/button.wav"));
     		Clip clip = AudioSystem.getClip();
     		clip.open(in);
+    		FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			volumeControl.setValue(GUI.AUDIO_GAIN);
     		clip.start();
  
     	} catch(Exception any) {
