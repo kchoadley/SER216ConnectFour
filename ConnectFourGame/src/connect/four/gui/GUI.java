@@ -27,7 +27,6 @@ public class GUI extends javax.swing.JFrame {
 		score1 = 0;
 		score2 = 0;
 		mainMenu = new MainMenuPanel(this);
-		gamePanel = new GamePanel(this, mainMenu.getIsEnabled(), mainMenu.getDiff());
 		add(mainMenu);
 		
 	}
